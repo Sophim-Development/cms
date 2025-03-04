@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Serve existing files in public/ directly (e.g., assets/)
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Rewrite all other requests to src/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ hms/src/$1 [L]

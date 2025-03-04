@@ -1,0 +1,14 @@
+{
+  "name": "hms",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./public/assets/css/style.css --minify",
+    "build:js": "cp ./src/assets/js/script.js ./public/assets/js/script.js",
+    "build": "npm run build:css && npm run build:js",
+    "watch:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./public/assets/css/style.css --watch",
+    "watch": "npm run watch:css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
