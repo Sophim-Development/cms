@@ -19,15 +19,15 @@ if (getenv('APP_ENV') === 'production') {
     }
 }
 
-define('DB_SERVER', $useEnv ? ($_ENV['DB_SERVER'] ?? 'localhost') : 'localhost');
+define('DB_SERVER', $useEnv ? ($_ENV['DB_SERVER'] ?? '127.0.0.1') : '127.0.0.1');
 define('DB_USER', $useEnv ? ($_ENV['DB_USER'] ?? 'root') : 'root');
-define('DB_PASS', $useEnv ? ($_ENV['DB_PASS'] ?? '') : '');
+define('DB_PASS', $useEnv ? ($_ENV['DB_PASS'] ?? 'hms_password') : '');
 define('DB_NAME', $useEnv ? ($_ENV['DB_NAME'] ?? 'hms_db') : 'hms_db');
 
 $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-if (mysqli_connect_errno()) {
-    die("Failed to connect to MySQL: " . mysqli_connect_error());
+if (!$con) {
+    die("Failed to connect to MySQL: " . mysqli_connect_error() . " (Error #" . mysqli_connect_errno() . ")");
 }
 
-mysqli_set_charset($con, "utf8mb4");
+mysqli_set_charset($con, "utf8mb4") or die("Failed to set charset: " . mysqli_error($con));
 ?>

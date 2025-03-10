@@ -1,15 +1,16 @@
 <?php
-require_once __DIR__ . '/../../includes/config.php';
-require_once __DIR__ . '/../../services/DoctorService.php';
+require_once dirname(__DIR__, 2) . '/includes/config.php';
+require_once dirname(__DIR__, 2) . '/includes/functions.php'; // For potential redirect()
+require_once dirname(__DIR__, 2) . '/services/DoctorService.php';
 
 if (!isset($_SESSION['doctor_id'])) {
-    redirect('/src/doctor/pages/login.php');
+    redirect('/doctor/pages/login.php');
 }
 
 $doctorService = new DoctorService($con);
 $appointments = $doctorService->getDoctorAppointments($_SESSION['doctor_id']);
 
-include '../../includes/header-auth.php';
+include dirname(__DIR__, 2) . '/includes/header-auth.php';
 ?>
 
 <div class="container mx-auto mt-12">
@@ -39,4 +40,4 @@ include '../../includes/header-auth.php';
     </div>
 </div>
 
-<?php include '../../includes/footer-auth.php'; ?>
+<?php include dirname(__DIR__, 2) . '/includes/footer-auth.php'; ?>

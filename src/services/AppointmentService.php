@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/includes/config.php';
+require_once dirname(__DIR__, 1) . '/includes/config.php';
 
 class AppointmentService {
     private $conn;
@@ -48,4 +48,3 @@ class AppointmentService {
         return $result;
     }
 }
-?>

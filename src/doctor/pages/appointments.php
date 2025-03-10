@@ -1,9 +1,10 @@
 <?php
-require_once __DIR__ . '/../../includes/config.php';
-require_once __DIR__ . '/../../services/DoctorService.php';
+require_once dirname(__DIR__, 2) . '/includes/config.php';
+require_once dirname(__DIR__, 2) . '/includes/functions.php'; // For potential redirect()
+require_once dirname(__DIR__, 2) . '/services/DoctorService.php';
 
 if (!isset($_SESSION['doctor_id'])) {
-    redirect('/src/doctor/pages/login.php');
+    redirect('/doctor/pages/login.php');
 }
 
 $doctorService = new DoctorService($con);
@@ -21,14 +22,15 @@ if (isset($_POST['update_status'])) {
     }
 }
 
-include '../../includes/header-auth.php';
+include dirname(__DIR__, 2) . '/includes/header-auth.php';
 ?>
 
 <div class="container mx-auto mt-12">
     <h1 class="text-3xl font-bold mb-6 text-blue-600">Manage Appointments</h1>
 
     <?php if ($message): ?>
-        <div class="mb-6 p-4 <?php echo strpos($message, 'success') !== false ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'; ?> rounded-lg">
+        <div
+            class="mb-6 p-4 <?php echo strpos($message, 'success') !== false ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'; ?> rounded-lg">
             <?php echo $message; ?>
         </div>
     <?php endif; ?>
@@ -69,4 +71,4 @@ include '../../includes/header-auth.php';
     </div>
 </div>
 
-<?php include '../../includes/footer-auth.php'; ?>
+<?php include dirname(__DIR__, 2) . '/includes/footer-auth.php'; ?>

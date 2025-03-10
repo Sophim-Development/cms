@@ -1,10 +1,17 @@
 RewriteEngine On
+RewriteBase /hms/public/
 
 # Serve existing files in public/ directly (e.g., assets/)
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# Rewrite all other requests to src/
+# Rewrite PHP files to src/ (including nested paths like user/pages/)
+RewriteCond %{REQUEST_URI} \.php$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ hms/src/$1 [L]
+RewriteRule ^(.*)$ src/$1 [L]
+
+# Fallback to src/index.php for root or non-existent files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
