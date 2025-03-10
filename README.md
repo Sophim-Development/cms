@@ -1,2 +1,2 @@
-# hms
-Hospital Management System
+# cms
+Clinic Management System
