@@ -1,5 +1,9 @@
 {
-    "require": {
+    "name": "Realwat/cms",
+    "description": "A brief description of your project",
+    "type": "project",
+    "license": "proprietary",
+     "require": {
         "vlucas/phpdotenv": "^5.6"
     }
 }
