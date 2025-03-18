@@ -6,11 +6,7 @@ How to run the Auto/Taxi Stand Management Project Using PHP and MySQL
 1. Clone project
 2. cd projectName
 3. Run: ```yarn install```
-<<<<<<< HEAD
 4. Run: ```./build.sh```, run ```chmod +x build.sh``` to give permission then run build again
-=======
-4. Run: ```./build.sh```
->>>>>>> ddfa837 (Update README.md)
 5. Create a database with name hms
 7.Run the script ```php -S localhost:3000 -t public/```, open http://localhost/3000 (frontend)
 Login Details
