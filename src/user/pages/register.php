@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__DIR__, 2) . '/includes/config.php';
-require_once dirname(__DIR__, 2) . '/includes/functions.php'; // For redirect() and sanitize()
+require_once dirname(__DIR__, 2) . '/includes/functions.php';
 require_once dirname(__DIR__, 2) . '/services/UserService.php';
 
 if (isset($_SESSION['user_id'])) {
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'city' => sanitize($_POST['city']),
         'gender' => sanitize($_POST['gender']),
         'email' => sanitize($_POST['email']),
-        'password' => md5(sanitize($_POST['password'])) // Use password_hash() in production
+        'password' => md5(sanitize($_POST['password'])) 
     ];
 
     if ($userService->registerUser($data)) {
