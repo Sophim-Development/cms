@@ -45,8 +45,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y mysql-server
           sudo systemctl start mysql
-          mysql -e "CREATE DATABASE hms_db;"
-          mysql hms_db < hms_db.sql
+          # Set root password and configure access
+          sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'root';"
+          # Create database and import data with proper credentials
+          mysql -u root -proot -e "CREATE DATABASE hms_db;"
+          mysql -u root -proot hms_db < hms_db.sql
         env:
           MYSQL_ROOT_PASSWORD: root
 
