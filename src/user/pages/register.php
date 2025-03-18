@@ -30,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include dirname(__DIR__, 2) . '/includes/header-public.php';
 ?>
 
-<div class="container mx-auto mt-12 max-w-md">
+<div class="container mx-auto mt-12 max-w-md py-12">
     <div class="bg-white p-8 rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold mb-6 text-center text-blue-600">Patient Registration</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center text-green-600">Patient Registration</h1>
 
         <?php if ($message): ?>
             <p
@@ -75,10 +75,10 @@ include dirname(__DIR__, 2) . '/includes/header-public.php';
                     class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" required>
             </div>
             <button type="submit"
-                class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition">Register</button>
+                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-full sm:w-auto">Register</button>
         </form>
-        <p class="mt-4 text-center">Already have an account? <a href="/user/pages/login.php"
-                class="text-blue-600 hover:underline">Login</a></p>
+        <p class="mt-4 text-center">Already have an account? <a href="/user/login"
+                class="text-green-600 hover:underline">Login</a></p>
     </div>
 </div>
 
