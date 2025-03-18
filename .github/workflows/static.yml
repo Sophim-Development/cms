@@ -31,13 +31,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Install Dependencies
+        run: composer install --no-progress --prefer-dist
+
+      - name: Build Static Site
+        run: php build.php
+          # Add any environment variables if needed by index.php (e.g., for dynamic content)
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: 'public'
+          path: 'dist'  # Upload the built static files
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
