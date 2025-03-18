@@ -2,11 +2,8 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -43,9 +40,25 @@ jobs:
       - name: Install Dependencies
         run: composer install --no-progress --prefer-dist
 
+      - name: Set up MySQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mysql-server
+          sudo systemctl start mysql
+          mysql -e "CREATE DATABASE hms_db;"
+          mysql hms_db < hms_db.sql
+        env:
+          MYSQL_ROOT_PASSWORD: root
+
       - name: Build Static Site
-        run: php build.php
-          # Add any environment variables if needed by index.php (e.g., for dynamic content)
+        run: |
+          mkdir -p dist
+          php build.php
+        env:
+          DB_HOST: localhost
+          DB_NAME: hms_db
+          DB_USER: root
+          DB_PASSWORD: root
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
