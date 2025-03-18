@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__DIR__, 2) . '/includes/config.php';
-require_once dirname(__DIR__, 2) . '/includes/functions.php'; // For potential redirect()
+require_once dirname(__DIR__, 2) . '/includes/functions.php';
 require_once dirname(__DIR__, 2) . '/services/AdminService.php';
 
 if (!isset($_SESSION['admin_id'])) {
