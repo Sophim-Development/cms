@@ -1,5 +1,5 @@
 {
-    "name": "Realwat/cms",
+    "name": "realwat/cms",
     "description": "A content management system developed by Sophim-Development",
     "type": "project",
     "license": "proprietary",
@@ -9,9 +9,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Sophim\\cms\\": "src/"
+            "realwat\\cms\\": "src/"
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
 }
