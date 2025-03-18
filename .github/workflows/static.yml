@@ -28,6 +28,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}  # Should be ftpupload.net
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: "."
+          local-dir: "./"
           server-dir: "/htdocs/"
           port: 21  # Explicitly set to ensure correct port
