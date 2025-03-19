@@ -40,4 +40,26 @@ class DoctorService {
         mysqli_stmt_close($stmt);
         return $result;
     }
+
+    public function getAllDoctors() {
+        $sql = "SELECT *
+                FROM doctors
+                LEFT JOIN doctorspecialization ON doctors.specialization = doctorspecialization.id";
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $doctors = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $doctors[] = [
+                'id' => $row['id'],
+                'doctorName'=>$row['doctorName'],
+                'docFees'=>$row['docFees'],
+                'specialization' => $row['specialization'],
+                'contact'=> $row['contactno'],
+                'email'=> $row['docEmail'],
+            ];
+        }
+        mysqli_stmt_close($stmt);
+        return $doctors;
+    }
 }

@@ -1,5 +1,9 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/services/DoctorService.php';
+$doctorService = new DoctorService($con);
+$doctors = $doctorService->getAllDoctors();
 
 if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id']) && !isset($_SESSION['doctor_id'])) {
     include __DIR__ . '/includes/header-public.php';
@@ -7,7 +11,6 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id']) && !isset($_SE
     include __DIR__ . '/includes/header-auth.php';
 }
 ?>
-
     <section id="home" class="pt-20">
         <!-- Carousel -->
         <div class="relative w-full h-64 sm:h-80 md:h-96 overflow-hidden">
@@ -137,6 +140,28 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id']) && !isset($_SE
                 <div class="gallery-item laboratory">
                     <img src="./assets/images/gallery/gallery_08.jpg" alt="Laboratory Image 2" class="w-full h-48 object-cover rounded-lg shadow-md">
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="py-10">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-center">Our Doctors</h2>
+            <p class="text-sm sm:text-base md:text-lg text-center mb-6">Meet our expert medical team</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <?php
+                foreach ($doctors as $doctor) {
+                    echo '<div class="doctor-card">';
+                    echo '<img src="./assets/images//doctor.jpg" class="mb-4">';
+                    echo '<h3 class="text-lg font-semibold">' . htmlspecialchars($doctor['doctorName']) . '</h3>';
+                    echo '<p class="text-gray-600">Specialization: ' . htmlspecialchars($doctor['specialization']) . '</p>';
+                    echo '<p class="text-gray-600">Fees: $' . htmlspecialchars($doctor['docFees']) . '</p>';
+                    echo '<p class="text-gray-600">Contact: ' . (htmlspecialchars($doctor['contact']) ?: 'N/A') . '</p>';
+                    echo '<p class="text-gray-600">Email: ' . (htmlspecialchars($doctor['email']) ?: 'N/A') . '</p>';
+                    echo '</div>';
+                }
+                ?>
             </div>
         </div>
     </section>
