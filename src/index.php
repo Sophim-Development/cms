@@ -1,15 +1,10 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/functions.php';
-require_once __DIR__ . '/services/DoctorService.php';
+require_once __DIR__ . '/doctor/services/DoctorService.php';
 $doctorService = new DoctorService($con);
 $doctors = $doctorService->getAllDoctors();
-
-if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id']) && !isset($_SESSION['doctor_id'])) {
-    include __DIR__ . '/includes/header-public.php';
-} else {
-    include __DIR__ . '/includes/header-auth.php';
-}
+include __DIR__ . '/includes/header-public.php';
 ?>
     <section id="home" class="pt-20">
         <!-- Carousel -->
@@ -194,9 +189,5 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id']) && !isset($_SE
         </div>
     </section>
 <?php
-if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id']) && !isset($_SESSION['doctor_id'])) {
-    include __DIR__ . '/includes/footer-public.php';
-} else {
-    include __DIR__ . '/includes/footer-auth.php';
-}
+include __DIR__ . '/includes/footer-public.php';
 ?>
