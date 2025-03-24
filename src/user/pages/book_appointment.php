@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__DIR__, 2) . '/includes/functions.php';
-require_once dirname(__DIR__, 2) . '/includes/functions.php'; // For redirect() and sanitize()
-require_once dirname(__DIR__, 2) . '/services/AppointmentService.php';
+require_once dirname(__DIR__, 2) . '/includes/functions.php'; 
+require_once dirname(__DIR__, 2) . '/services/AppointmentService.php'; 
 require_once dirname(__DIR__, 2) . '/services/SpecializationService.php';
 
 $specService = new SpecializationService($con);
@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
   redirect('/user/login');
 } else {
   if (isset($_SESSION['user_id'])) {
-    dirname(__DIR__, 2) . '/includes/header-auth.php';
+    dirname(__DIR__) . '/header.php';
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $appointmentService = new AppointmentService($con);
       $data = [
