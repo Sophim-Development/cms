@@ -9,7 +9,7 @@ class SpecializationService {
     }
 
     public function getAllSpecializations() {
-        $sql = "SELECT * FROM doctorspecialization";
+        $sql = "SELECT * FROM specializations";
         $stmt = mysqli_prepare($this->conn, $sql);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
@@ -30,7 +30,7 @@ class SpecializationService {
     }
 
     public function addSpecialization($name) {
-        $sql = "INSERT INTO doctorspecialization (specialization) VALUES (?)";
+        $sql = "INSERT INTO specializations (specialization) VALUES (?)";
         $stmt = mysqli_prepare($this->conn, $sql);
         mysqli_stmt_bind_param($stmt, "s", $name);
         $result = mysqli_stmt_execute($stmt);

@@ -3,12 +3,12 @@ require_once dirname(__DIR__, 2) . '/includes/config.php';
 require_once dirname(__DIR__, 2) . '/includes/functions.php'; // For potential redirect()
 require_once dirname(__DIR__, 2) . '/services/DoctorService.php';
 
-if (!isset($_SESSION['doctor_id'])) {
+if (!isset($_COOKIE['doctor_id'])) {
     redirect('/doctor/pages/login.php');
 }
 
 $doctorService = new DoctorService($con);
-$appointments = $doctorService->getDoctorAppointments($_SESSION['doctor_id']);
+$appointments = $doctorService->getDoctorAppointments($_COOKIE['doctor_id']);
 
 include dirname(__DIR__, 2) . '/includes/header-auth.php';
 ?>

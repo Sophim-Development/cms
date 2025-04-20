@@ -1,25 +1,20 @@
 <?php
 require_once dirname(__DIR__, 2) . '/includes/config.php';
 require_once dirname(__DIR__, 2) . '/includes/functions.php';
-require_once dirname(__DIR__, 1) . '/services/UserService.php';
+require_once dirname(__DIR__, 2) . '/services/UserService.php';
 
 $userService = new UserService($con);
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = sanitize($_POST['email']);
-    
-    // Check if email exists
     $user = $userService->getUserByEmail($email);
     if ($user) {
-        // Generate a unique token
         $token = bin2hex(random_bytes(32));
-        $expiresAt = date('Y-m-d H:i:s', strtotime('+1 hour')); // Token expires in 1 hour
+        $expiresAt = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
-        // Store the token in the database
         if ($userService->storePasswordResetToken($user['id'], $token, $expiresAt)) {
-            // Send the reset email
-            $resetLink = "http://yourdomain.com/user/reset-password?token=$token";
+            $resetLink = "http://localhost/user/reset-password?token=$token";
             $subject = "Password Reset Request";
             $body = "Hello,\n\nYou requested a password reset. Click the link below to reset your password:\n$resetLink\n\nThis link will expire in 1 hour.\n\nIf you did not request this, please ignore this email.";
             $headers = "From: no-reply@yourdomain.com";
@@ -44,12 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-400 to-blue-600 p-4">
     <div class="flex flex-col lg:flex-row max-w-5xl w-full bg-white rounded-lg shadow-lg overflow-hidden">
-        <!-- Left Side: Form -->
         <div class="w-full lg:w-1/2 p-8">
             <h1 class="text-3xl font-bold mb-6 text-center text-green-600">Forgot Password</h1>
 
@@ -73,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </p>
         </div>
 
-        <!-- Right Side: Image -->
         <div class="hidden lg:block w-full lg:w-1/2 relative">
             <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
                 alt="Doctor with tablet" class="w-full h-full object-cover">

@@ -1,13 +1,8 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/functions.php';
-require_once __DIR__ . '/doctor/services/DoctorService.php';
-$doctorService = new DoctorService($con);
-$doctors = $doctorService->getAllDoctors();
 
-if (!isset($_SESSION['user_id'])) {
-    include __DIR__ . '/includes/header-public.php';
-}
+include __DIR__ . '/includes/header-public.php';
 ?>
 <section id="home" class="pt-20">
   <!-- Carousel -->
@@ -200,18 +195,6 @@ if (!isset($_SESSION['user_id'])) {
     <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-center">Our Doctors</h2>
     <p class="text-sm sm:text-base md:text-lg text-center mb-6">Meet our expert medical team</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <?php
-                foreach ($doctors as $doctor) {
-                    echo '<div class="doctor-card">';
-                    echo '<img src="./assets/images//doctor.jpg" class="mb-4">';
-                    echo '<h3 class="text-lg font-semibold">' . htmlspecialchars($doctor['doctorName']) . '</h3>';
-                    echo '<p class="text-gray-600">Specialization: ' . htmlspecialchars($doctor['specialization']) . '</p>';
-                    echo '<p class="text-gray-600">Fees: $' . htmlspecialchars($doctor['docFees']) . '</p>';
-                    echo '<p class="text-gray-600">Contact: ' . (htmlspecialchars($doctor['contact']) ?: 'N/A') . '</p>';
-                    echo '<p class="text-gray-600">Email: ' . (htmlspecialchars($doctor['email']) ?: 'N/A') . '</p>';
-                    echo '</div>';
-                }
-                ?>
     </div>
   </div>
 </section>
@@ -253,7 +236,5 @@ if (!isset($_SESSION['user_id'])) {
   </div>
 </section>
 <?php
-if (!isset($_SESSION['user_id'])) {
 include __DIR__ . '/includes/footer-public.php';
-}
 ?>

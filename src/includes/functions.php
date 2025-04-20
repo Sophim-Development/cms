@@ -10,6 +10,7 @@ function redirect($url)
 function sanitize($data)
 {
     $con = getDbConnection();
+    if (!isset($data)) return '';
     return mysqli_real_escape_string($con, htmlspecialchars(trim($data)));
 }
 

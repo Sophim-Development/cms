@@ -1,9 +1,9 @@
 <?php
 require_once dirname(__DIR__, 2) . '/includes/config.php';
 require_once dirname(__DIR__, 2) . '/includes/functions.php';
-require_once dirname(__DIR__, 1) . '/services/UserService.php';
+require_once dirname(__DIR__, 2) . '/services/UserService.php';
 
-if (isset($_SESSION['user_id'])) {
+if (isset($_COOKIE['user_id'])) {
     redirect('/user/dashboard');
 }
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'city' => sanitize($_POST['city']),
         'gender' => sanitize($_POST['gender']),
         'email' => sanitize($_POST['email']),
-        'password' => md5(sanitize($_POST['password'])) 
+        'password' => sanitize($_POST['password'])
     ];
 
     if ($userService->emailExists($data['email'])) {
@@ -25,11 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $userId = $userService->registerUser($data);
         if ($userId) {
-            $_SESSION['user_id'] = $userId;
+            setcookie('user_id', $userId, time() - 3600, '/');
             $message = "Registration successful! Redirecting to dashboard...";
-            header("Refresh: 2; url=/user/pages/dashboard.php");
+            header("Refresh: 2; url=/user/dashboard");
         } else {
             $message = "Registration failed.";
+            setcookie('user_id', '', time() - 3600, '/');
         }
     }
 }
@@ -58,22 +59,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="mb-4">
                     <label for="fullName" class="block text-gray-700 font-medium mb-2">Full Name</label>
                     <input type="text" id="fullName" name="fullName"
-                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                 </div>
                 <div class="mb-4">
                     <label for="address" class="block text-gray-700 font-medium mb-2">Address</label>
                     <input type="text" id="address" name="address"
-                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                 </div>
                 <div class="mb-4">
                     <label for="city" class="block text-gray-700 font-medium mb-2">City</label>
                     <input type="text" id="city" name="city"
-                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                 </div>
                 <div class="mb-4">
                     <label for="gender" class="block text-gray-700 font-medium mb-2">Gender</label>
                     <select id="gender" name="gender"
-                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
@@ -81,12 +82,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="mb-4">
                     <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
                     <input type="email" id="email" name="email"
-                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                 </div>
                 <div class="mb-6">
                     <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
                     <input type="password" id="password" name="password"
-                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                 </div>
                 <button type="submit"
                     class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 w-full">Register</button>
