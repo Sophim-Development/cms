@@ -5,7 +5,6 @@ class UserService {
     public function __construct($con) {
         $this->con = $con;
     }
-
     public function emailExists($email) {
         $query = "SELECT COUNT(*) FROM users WHERE email = ?";
         $stmt = $this->con->prepare($query);
@@ -45,15 +44,13 @@ class UserService {
             if (isset($stmt)) {
                 $stmt->close();
             }
-            // Log the error internally if needed
             error_log($e->getMessage());
-            return false; // Or you could return the error message for more specific handling in register.php
+            return false; 
         }
     }
 
     public function userLogin($email, $password) {
         try {
-            // Normalize email to avoid case-sensitivity issues
             $email = strtolower($email);
             $query = "SELECT id, password, role FROM users WHERE email = ?";
             $stmt = $this->con->prepare($query);
@@ -77,7 +74,6 @@ class UserService {
             if (isset($stmt)) {
                 $stmt->close();
             }
-            // Log the error internally if needed
             error_log($e->getMessage());
             return false;
         }

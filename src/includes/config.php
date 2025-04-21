@@ -10,7 +10,6 @@ if (getenv('APP_ENV') === 'production') {
     } else {
         die("Vendor autoloader not found. Please run 'composer install' in the project root.");
     }
-
     // Load environment variables from .env file
     try {
         $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);

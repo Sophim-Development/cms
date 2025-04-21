@@ -207,7 +207,6 @@ include_once dirname(__DIR__, 2) . '/includes/footer-auth.php';
         document.getElementById('booking-modal').classList.add('hidden');
     });
 
-    // Optional: Close modal when clicking outside the form
     document.getElementById('booking-modal').addEventListener('click', function (e) {
         if (e.target.id === 'booking-modal') {
             document.getElementById('booking-modal').classList.add('hidden');

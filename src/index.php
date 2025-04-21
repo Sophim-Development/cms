@@ -12,7 +12,7 @@ include __DIR__ . '/includes/header-public.php';
         class="carousel-item absolute w-full h-full flex items-center justify-center transition-opacity duration-500 opacity-0">
         <img src="./assets/images/slider/slider_1.jpg" alt="Slide 1" class="w-full h-full object-cover">
         <div class="absolute text-white text-center">
-          <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold">Hospital Management System</h1>
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold">CMS Management System</h1>
         </div>
       </div>
       <div
