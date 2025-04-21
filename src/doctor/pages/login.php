@@ -3,7 +3,7 @@ require_once dirname(__DIR__, 2) . '/includes/config.php';
 require_once dirname(__DIR__, 2) . '/includes/functions.php'; // For redirect()
 require_once dirname(__DIR__, 2) . '/services/DoctorService.php';
 
-if (isset($_SESSION['doctor_id'])) {
+if (isset($_COOKIE['doctor_id'])) {
     redirect('/doctor/dashboard');
 }
 
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $doctor = $doctorService->doctorLogin($email, $password);
 
     if ($doctor) {
-        $_SESSION['doctor_id'] = $doctor['id'];
+        $_COOKIE['doctor_id'] = $doctor['id'];
         redirect('/doctor/dashboard');
     } else {
         $message = 'Invalid email or password.';

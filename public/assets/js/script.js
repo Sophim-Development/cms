@@ -109,4 +109,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
         galleryTabs[0].click();
     }
+
+    // Book Appointment Page: Toggle Booking Form
+    const bookNewAppointmentBtn = document.getElementById('book-new-appointment');
+    const bookingForm = document.getElementById('booking-form');
+    if (bookNewAppointmentBtn && bookingForm) {
+        bookNewAppointmentBtn.addEventListener('click', () => {
+            bookingForm.classList.toggle('hidden');
+        });
+    }
+
+    // Book Appointment Page: Handle Appointment Details Modal
+    const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
+    const appointmentModal = document.getElementById('appointment-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+
+    viewDetailsButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const appointment = JSON.parse(button.getAttribute('data-appointment'));
+            document.getElementById('modal-specialization').textContent = appointment.specialization;
+            document.getElementById('modal-doctor').textContent = appointment.doctor_name;
+            document.getElementById('modal-date').textContent = appointment.appointment_date;
+            document.getElementById('modal-time').textContent = appointment.appointment_time;
+            document.getElementById('modal-status').textContent = appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1);
+            document.getElementById('modal-fees').textContent = appointment.fees || 'N/A';
+            appointmentModal.classList.remove('hidden');
+        });
+    });
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            appointmentModal.classList.add('hidden');
+        });
+    }
+
+    // Close modal when clicking outside
+    appointmentModal?.addEventListener('click', (e) => {
+        if (e.target === appointmentModal) {
+            appointmentModal.classList.add('hidden');
+        }
+    });
+
+    // Book Appointment Page: Mobile Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            }
+        });
+    }
 });

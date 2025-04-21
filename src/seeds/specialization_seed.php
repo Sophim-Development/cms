@@ -1,8 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+// Database connection
 if (getenv('APP_ENV') === 'production') {
     // Load the autoloader for Composer dependencies (e.g., phpdotenv)
     if (file_exists(__DIR__ . '../../vendor/autoload.php')) {
@@ -10,6 +7,7 @@ if (getenv('APP_ENV') === 'production') {
     } else {
         die("Vendor autoloader not found. Please run 'composer install' in the project root.");
     }
+
     // Load environment variables from .env file
     try {
         $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -31,6 +29,34 @@ if (!$con) {
     die("Failed to connect to MySQL: " . mysqli_connect_error() . " (Error #" . mysqli_connect_errno() . ")");
 }
 
-// Set charset to utf8mb4
-mysqli_set_charset($con, "utf8mb4") or die("Failed to set charset: " . mysqli_error($con));
+// Array of specializations to insert
+$specializations = [
+    'Cardiology',
+    'Dermatology',
+    'Neurology',
+    'Pediatrics',
+    'Psychiatry',
+    'Oncology',
+    'Orthopedics',
+    'Gastroenterology'
+];
+
+// Prepare insert query
+$stmt = $con->prepare("INSERT INTO specializations (specialization) VALUES (?)");
+
+if (!$stmt) {
+    die("Prepare failed: " . $con->error);
+}
+
+foreach ($specializations as $spec) {
+    $stmt->bind_param("s", $spec);
+    if ($stmt->execute()) {
+        echo "Inserted: $spec<br>";
+    } else {
+        echo "Failed to insert: $spec - " . $stmt->error . "<br>";
+    }
+}
+
+$stmt->close();
+$con->close();
 ?>

@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="text-center mt-6">
-            <p class="text-sm sm:text-base">© 2025 Hospital Management System</p>
+            <p class="text-sm sm:text-base">© 2025 Clinic Management System</p>
         </div>
     </footer>
 </body>
